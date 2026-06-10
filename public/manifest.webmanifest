@@ -1,0 +1,22 @@
+{
+  "name": "U12 Coach — 3-4-1 Lineup Planner",
+  "short_name": "U12 Coach",
+  "description": "Player ratings, position fit, and game-day lineup planning for a U12 girls soccer team.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f2f5f1",
+  "theme_color": "#2e7d4f",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
