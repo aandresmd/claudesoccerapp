@@ -3,13 +3,18 @@ import { createContext, useContext, useEffect, useMemo, useReducer } from 'react
 import type { ReactNode } from 'react'
 import { DEFAULT_WEIGHTS } from './data/positions'
 import { SAMPLE_PLAYERS } from './data/samplePlayers'
+import { emptyGameStats } from './data/stats'
 import type {
   AppState,
+  AttributeId,
   GamePlan,
+  GameRecord,
   PeriodLineup,
   Player,
+  PlayerReview,
   PositionId,
   Ratings,
+  StatId,
 } from './types'
 
 const STORAGE_KEY = 'u12-coach-v1'
@@ -21,6 +26,9 @@ function emptyGame(periodCount = DEFAULT_PERIODS): GamePlan {
     date: '',
     periodCount,
     periods: Array.from({ length: periodCount }, () => ({})),
+    stats: {},
+    scoreUs: 0,
+    scoreThem: 0,
   }
 }
 
@@ -29,6 +37,19 @@ export function initialState(): AppState {
     players: SAMPLE_PLAYERS,
     weights: structuredClone(DEFAULT_WEIGHTS),
     game: emptyGame(),
+    history: [],
+    dismissed: [],
+  }
+}
+
+/** Fill in fields that didn't exist when older saved data was written. */
+export function migrate(parsed: AppState): AppState {
+  return {
+    ...initialState(),
+    ...parsed,
+    game: { ...emptyGame(), ...parsed.game },
+    history: parsed.history ?? [],
+    dismissed: parsed.dismissed ?? [],
   }
 }
 
@@ -38,7 +59,7 @@ function loadState(): AppState {
     if (raw) {
       const parsed = JSON.parse(raw) as AppState
       if (Array.isArray(parsed.players) && parsed.weights && parsed.game) {
-        return parsed
+        return migrate(parsed)
       }
     }
   } catch {
@@ -60,6 +81,12 @@ export type Action =
   | { type: 'setPeriods'; periods: PeriodLineup[] }
   | { type: 'clearPeriod'; period: number }
   | { type: 'newGame' }
+  | { type: 'incrementStat'; playerId: string; stat: StatId; delta: number }
+  | { type: 'setScore'; scoreUs?: number; scoreThem?: number }
+  | { type: 'finalizeGame'; reviews: Record<string, PlayerReview> }
+  | { type: 'deleteGame'; id: string }
+  | { type: 'setRating'; playerId: string; attribute: AttributeId; value: number; suggestionKey?: string }
+  | { type: 'dismissSuggestion'; key: string }
   | { type: 'importState'; state: AppState }
   | { type: 'loadDemo' }
   | { type: 'clearAll' }
@@ -158,12 +185,71 @@ function reducer(state: AppState, action: Action): AppState {
       }
     case 'newGame':
       return { ...state, game: emptyGame(state.game.periodCount) }
+    case 'incrementStat': {
+      const current = state.game.stats[action.playerId] ?? emptyGameStats()
+      const next = {
+        ...current,
+        [action.stat]: Math.max(0, current[action.stat] + action.delta),
+      }
+      return {
+        ...state,
+        game: { ...state.game, stats: { ...state.game.stats, [action.playerId]: next } },
+      }
+    }
+    case 'setScore':
+      return {
+        ...state,
+        game: {
+          ...state.game,
+          scoreUs: Math.max(0, action.scoreUs ?? state.game.scoreUs),
+          scoreThem: Math.max(0, action.scoreThem ?? state.game.scoreThem),
+        },
+      }
+    case 'finalizeGame': {
+      const record: GameRecord = {
+        id: `g-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+        opponent: state.game.opponent.trim() || 'Opponent',
+        date: state.game.date || new Date().toISOString().slice(0, 10),
+        periodCount: state.game.periodCount,
+        periods: state.game.periods,
+        stats: state.game.stats,
+        reviews: action.reviews,
+        scoreUs: state.game.scoreUs,
+        scoreThem: state.game.scoreThem,
+      }
+      return {
+        ...state,
+        history: [record, ...state.history],
+        game: emptyGame(state.game.periodCount),
+      }
+    }
+    case 'deleteGame':
+      return { ...state, history: state.history.filter((g) => g.id !== action.id) }
+    case 'setRating': {
+      const players = state.players.map((p) =>
+        p.id === action.playerId
+          ? { ...p, ratings: { ...p.ratings, [action.attribute]: action.value } }
+          : p,
+      )
+      const dismissed = action.suggestionKey
+        ? [...state.dismissed, action.suggestionKey]
+        : state.dismissed
+      return { ...state, players, dismissed }
+    }
+    case 'dismissSuggestion':
+      return { ...state, dismissed: [...state.dismissed, action.key] }
     case 'importState':
-      return action.state
+      return migrate(action.state)
     case 'loadDemo':
       return initialState()
     case 'clearAll':
-      return { players: [], weights: structuredClone(DEFAULT_WEIGHTS), game: emptyGame() }
+      return {
+        players: [],
+        weights: structuredClone(DEFAULT_WEIGHTS),
+        game: emptyGame(),
+        history: [],
+        dismissed: [],
+      }
     default:
       return state
   }

@@ -967,6 +967,370 @@ input[type='range'] {
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- live stats ---------- */
+
+.mode-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.mode-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.mode-toggle button {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.mode-toggle button.selected {
+  background: var(--green);
+  color: #fff;
+}
+
+.mode-score {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-left: auto;
+}
+
+.score-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+}
+
+.score-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.score-team {
+  font-weight: 700;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score-vs {
+  color: var(--text-soft);
+}
+
+.score-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-stepper strong {
+  min-width: 26px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.score-stepper button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.score-bar .btn-secondary {
+  margin-left: auto;
+}
+
+.stat-legend {
+  margin: 0 0 10px;
+}
+
+.stat-list {
+  list-style: none;
+  margin: 6px 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.off-field .stat-row {
+  opacity: 0.8;
+}
+
+.stat-pos-tag {
+  min-width: 38px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border-radius: 6px;
+  padding: 3px 5px;
+}
+
+.stat-pos-tag.bench-tag {
+  background: #eef1ee;
+  color: var(--text-soft);
+}
+
+.stat-player {
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.stat-player em {
+  font-style: normal;
+  color: var(--green-dark);
+}
+
+.stat-pos-name {
+  font-size: 0.78rem;
+  width: 110px;
+}
+
+.stat-btns {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.stat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 48px;
+  padding: 5px 6px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  line-height: 1.15;
+}
+
+.stat-btn:active {
+  background: var(--green-soft);
+}
+
+.stat-btn.has-count {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.stat-short {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+.stat-btn.has-count .stat-short {
+  color: var(--green-dark);
+}
+
+.stat-count {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* ---------- post-game review ---------- */
+
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.review-card {
+  padding: 12px 14px;
+}
+
+.review-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.review-player em {
+  font-style: normal;
+  color: var(--green-dark);
+}
+
+.star-picker {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.star {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 2px;
+  color: #d5dbd5;
+}
+
+.star.on {
+  color: #f0b429;
+}
+
+.tag-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag-chip {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.tag-chip.on {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ---------- season ---------- */
+
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.suggestion-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+}
+
+.suggestion-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-flags {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.season-table td,
+.season-table th {
+  text-align: center;
+}
+
+.season-table .name-cell {
+  text-align: left;
+}
+
+.game-log {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-log-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.game-log-row:last-child {
+  border-bottom: none;
+}
+
+.result-tag {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.result-w {
+  background: var(--score-great);
+}
+
+.result-l {
+  background: var(--score-low);
+}
+
+.result-d {
+  background: var(--score-ok);
+}
+
+.game-log-score {
+  font-weight: 800;
+  min-width: 38px;
+}
+
+.game-log-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 860px) {
@@ -982,5 +1346,23 @@ input[type='range'] {
 
   .slider-row {
     grid-template-columns: 96px 1fr 110px;
+  }
+
+  .stat-pos-name {
+    display: none;
+  }
+
+  .stat-btns {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .stat-btn {
+    flex: 1;
+  }
+
+  .star-picker {
+    margin-left: 0;
   }
 }

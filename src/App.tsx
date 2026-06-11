@@ -4,15 +4,17 @@ import { GameDayPage } from './components/GameDayPage'
 import { LineupPage } from './components/LineupPage'
 import { PositionsPage } from './components/PositionsPage'
 import { RosterPage } from './components/RosterPage'
+import { SeasonPage } from './components/SeasonPage'
 import { StoreProvider } from './store'
 
-type Tab = 'roster' | 'positions' | 'lineup' | 'gameday'
+type Tab = 'roster' | 'positions' | 'lineup' | 'gameday' | 'season'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'roster', label: 'Roster' },
   { id: 'positions', label: 'Positions' },
   { id: 'lineup', label: 'Best XI' },
   { id: 'gameday', label: 'Game Day' },
+  { id: 'season', label: 'Season' },
 ]
 
 export default function App() {
@@ -45,7 +47,8 @@ export default function App() {
           {tab === 'roster' && <RosterPage />}
           {tab === 'positions' && <PositionsPage />}
           {tab === 'lineup' && <LineupPage />}
-          {tab === 'gameday' && <GameDayPage />}
+          {tab === 'gameday' && <GameDayPage onGameSaved={() => setTab('season')} />}
+          {tab === 'season' && <SeasonPage />}
         </main>
       </div>
     </StoreProvider>

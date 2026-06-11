@@ -5,6 +5,8 @@ import { fitScore, scoreColor } from '../lib/scoring'
 import { autoPlanGame, countPeriodsPlayed, suggestLineup } from '../lib/suggest'
 import { useStore } from '../store'
 import type { PositionId } from '../types'
+import { GameReview } from './GameReview'
+import { LiveStats } from './LiveStats'
 import { DND_MIME, Pitch } from './Pitch'
 
 interface Selection {
@@ -12,11 +14,14 @@ interface Selection {
   fromPosition?: PositionId
 }
 
-export function GameDayPage() {
+type Mode = 'plan' | 'stats' | 'review'
+
+export function GameDayPage({ onGameSaved }: { onGameSaved?: () => void }) {
   const { state, dispatch } = useStore()
   const { game } = state
   const [period, setPeriod] = useState(0)
   const [selection, setSelection] = useState<Selection | null>(null)
+  const [mode, setMode] = useState<Mode>('plan')
 
   const activePeriod = Math.min(period, game.periodCount - 1)
   const lineup = game.periods[activePeriod] ?? {}
@@ -88,14 +93,30 @@ export function GameDayPage() {
     })
   }
 
+  if (mode === 'review') {
+    return (
+      <section className="page">
+        <GameReview
+          onDone={() => {
+            setMode('plan')
+            setPeriod(0)
+            onGameSaved?.()
+          }}
+          onCancel={() => setMode('stats')}
+        />
+      </section>
+    )
+  }
+
   return (
     <section className="page">
       <header className="page-header">
         <div>
           <h1>Game Day</h1>
           <p className="muted">
-            Tap a bench player, then tap a spot on the pitch (or drag and drop). Plan each period
-            and keep minutes fair.
+            {mode === 'plan'
+              ? 'Tap a bench player, then tap a spot on the pitch (or drag and drop). Plan each period and keep minutes fair.'
+              : 'One tap per event. Tap the period buttons as the game moves along so the right group is on top.'}
           </p>
         </div>
         <div className="toolbar game-info">
@@ -145,6 +166,23 @@ export function GameDayPage() {
         </div>
       </header>
 
+      <div className="mode-bar">
+        <div className="mode-toggle">
+          <button className={mode === 'plan' ? 'selected' : ''} onClick={() => setMode('plan')}>
+            Lineup
+          </button>
+          <button className={mode === 'stats' ? 'selected' : ''} onClick={() => setMode('stats')}>
+            Live stats
+          </button>
+        </div>
+        <span className="mode-score muted">
+          {game.scoreUs}–{game.scoreThem}
+        </span>
+        <button className="btn-primary" onClick={() => setMode('review')}>
+          End game &amp; review
+        </button>
+      </div>
+
       <div className="period-bar">
         <div className="period-tabs">
           {game.periods.map((p, i) => (
@@ -161,23 +199,27 @@ export function GameDayPage() {
             </button>
           ))}
         </div>
-        <div className="toolbar">
-          <button className="btn-secondary" onClick={autoFillPeriod}>
-            Auto-fill this period
-          </button>
-          <button className="btn-primary" onClick={autoPlanAll}>
-            Auto-plan whole game
-          </button>
-          <button
-            className="btn-ghost danger"
-            onClick={() => dispatch({ type: 'clearPeriod', period: activePeriod })}
-          >
-            Clear period
-          </button>
-        </div>
+        {mode === 'plan' && (
+          <div className="toolbar">
+            <button className="btn-secondary" onClick={autoFillPeriod}>
+              Auto-fill this period
+            </button>
+            <button className="btn-primary" onClick={autoPlanAll}>
+              Auto-plan whole game
+            </button>
+            <button
+              className="btn-ghost danger"
+              onClick={() => dispatch({ type: 'clearPeriod', period: activePeriod })}
+            >
+              Clear period
+            </button>
+          </div>
+        )}
       </div>
 
-      <div className="gameday-grid">
+      {mode === 'stats' && <LiveStats activePeriod={activePeriod} />}
+
+      <div className="gameday-grid" hidden={mode !== 'plan'}>
         <Pitch
           lineup={lineup}
           players={state.players}
@@ -238,7 +280,7 @@ export function GameDayPage() {
         </aside>
       </div>
 
-      <div className="card">
+      <div className="card" hidden={mode !== 'plan'}>
         <h2>Playing time</h2>
         <p className="muted">
           Periods planned per player{targetPeriods > 0 ? ` (even share ≈ ${targetPeriods})` : ''}.

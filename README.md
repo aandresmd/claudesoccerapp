@@ -61,6 +61,23 @@ fair share. The playing-time table shows who plays which position in which
 period at a glance. Players marked unavailable on the Roster tab are removed
 from the plan automatically.
 
+### Stats and the season
+
+Game Day has a **Live stats** view for the sideline: one tap per event across
+five concrete stats (goals, assists, shots on target, defensive stops, saves),
+with undo and a running score. **End game & review** opens an optional
+60-second review — 1–5 stars per player plus one-tap tags like *Great hustle*
+or *Strong passing*, each mapped to an attribute — then archives the whole
+game to the **Season** tab.
+
+Season shows totals, the game log, and **rating suggestions**: once a player
+has 3+ games of evidence (a stat rate well above the team, normalized by
+periods played, or repeated review tags), the app proposes a +1 to the mapped
+attribute with the evidence spelled out. Suggestions are accept/dismiss only —
+ratings never change automatically, nudges to a 5 need extra games of proof,
+and downward changes stay a coach judgment call (consistently low stars just
+get a gentle "worth a second look" note).
+
 ### Data
 
 The app seeds a 14-player demo roster so you can explore. Use

@@ -60,15 +60,45 @@ export type WeightProfiles = Record<PositionId, Ratings>
 /** Player id (or undefined) for each position in one period of play. */
 export type PeriodLineup = Partial<Record<PositionId, string>>
 
+/** Countable in-game events, tallied live from the sideline. */
+export type StatId = 'goals' | 'assists' | 'shots' | 'stops' | 'saves'
+
+export type GameStats = Record<StatId, number>
+
+/** Post-game 60-second review: 0 = not rated, otherwise 1-5 stars. */
+export interface PlayerReview {
+  stars: number
+  tags: string[]
+}
+
 export interface GamePlan {
   opponent: string
   date: string
   periodCount: number
   periods: PeriodLineup[]
+  stats: Record<string, GameStats>
+  scoreUs: number
+  scoreThem: number
+}
+
+/** A finished game, archived into season history. */
+export interface GameRecord {
+  id: string
+  opponent: string
+  date: string
+  periodCount: number
+  periods: PeriodLineup[]
+  stats: Record<string, GameStats>
+  reviews: Record<string, PlayerReview>
+  scoreUs: number
+  scoreThem: number
 }
 
 export interface AppState {
   players: Player[]
   weights: WeightProfiles
   game: GamePlan
+  history: GameRecord[]
+  /** Keys of rating suggestions the coach applied or dismissed. */
+  dismissed: string[]
 }
