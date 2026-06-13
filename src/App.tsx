@@ -26,10 +26,14 @@ export default function App() {
       <div className="app">
         <header className="app-header">
           <div className="brand">
-            <span className="brand-ball">⚽</span>
+            <img
+              className="brand-badge"
+              src={`${import.meta.env.BASE_URL}carmel-fc.svg`}
+              alt="Carmel FC badge"
+            />
             <div>
               <strong>U12 Coach</strong>
-              <span className="brand-sub">3-4-1 · 9v9</span>
+              <span className="brand-sub">Carmel FC · 3-4-1 · 9v9</span>
             </div>
           </div>
           <nav className="tabs">

@@ -1,12 +1,12 @@
 {
-  "name": "U12 Coach — 3-4-1 Lineup Planner",
+  "name": "Carmel FC U12 Coach — 3-4-1 Lineup Planner",
   "short_name": "U12 Coach",
-  "description": "Player ratings, position fit, and game-day lineup planning for a U12 girls soccer team.",
+  "description": "Player ratings, position fit, stats, and game-day lineup planning for a Carmel FC U12 girls soccer team.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "background_color": "#f2f5f1",
-  "theme_color": "#2e7d4f",
+  "background_color": "#f3f5fa",
+  "theme_color": "#123c87",
   "icons": [
     {
       "src": "icon-180.png",
@@ -14,7 +14,7 @@
       "type": "image/png"
     },
     {
-      "src": "favicon.svg",
+      "src": "carmel-fc.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }

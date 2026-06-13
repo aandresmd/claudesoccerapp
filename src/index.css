@@ -1,13 +1,15 @@
+/* Carmel FC palette: royal blue badge, white, and gold-star accents. */
 :root {
-  --bg: #f2f5f1;
+  --bg: #f3f5fa;
   --surface: #ffffff;
-  --text: #24312a;
-  --text-soft: #67756d;
-  --border: #dde4dd;
-  --green: #2e7d4f;
-  --green-dark: #1d5c38;
-  --green-soft: #e4f1e8;
-  --accent: #1e6f43;
+  --text: #1f2a44;
+  --text-soft: #5e6b86;
+  --border: #d8deeb;
+  --brand: #1c52b3;
+  --brand-dark: #123c87;
+  --brand-soft: #e4ecf9;
+  --accent: #1c52b3;
+  --gold: #f0b429;
   --danger: #c0392b;
   --score-great: #2e7d4f;
   --score-good: #6da82e;
@@ -15,7 +17,7 @@
   --score-low: #c0612b;
   --pitch-green: #3a8a4d;
   --pitch-green-dark: #338045;
-  --shadow: 0 1px 3px rgba(20, 40, 30, 0.12);
+  --shadow: 0 1px 3px rgba(18, 28, 55, 0.12);
 }
 
 * {

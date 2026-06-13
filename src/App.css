@@ -26,7 +26,7 @@
 .brand strong {
   display: block;
   font-size: 1.15rem;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .brand-sub {
@@ -35,8 +35,9 @@
   letter-spacing: 0.04em;
 }
 
-.brand-ball {
-  font-size: 1.7rem;
+.brand-badge {
+  width: 46px;
+  height: 46px;
 }
 
 .tabs {
@@ -55,8 +56,8 @@
 }
 
 .tab.selected {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--brand);
+  border-color: var(--brand);
   color: #fff;
 }
 
@@ -85,11 +86,11 @@
 }
 
 .hint {
-  background: var(--green-soft);
+  background: var(--brand-soft);
   border-radius: 8px;
   padding: 6px 10px;
   font-size: 0.85rem;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .warning-banner {
@@ -113,12 +114,12 @@
 }
 
 .btn-primary {
-  background: var(--green);
+  background: var(--brand);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--green-dark);
+  background: var(--brand-dark);
 }
 
 .btn-primary:disabled {
@@ -133,8 +134,8 @@
 }
 
 .btn-secondary:hover {
-  border-color: var(--green);
-  color: var(--green-dark);
+  border-color: var(--brand);
+  color: var(--brand-dark);
 }
 
 .btn-ghost {
@@ -145,7 +146,7 @@
 }
 
 .btn-ghost:hover {
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .danger,
@@ -227,7 +228,7 @@ tr.unavailable {
 
 .jersey-cell {
   font-weight: 700;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .name-cell {
@@ -265,12 +266,12 @@ tr.unavailable {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: var(--green-soft);
+  background: var(--brand-soft);
   border-radius: 999px;
   padding: 3px 9px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .pos-chip em {
@@ -319,7 +320,7 @@ tr.unavailable {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 25, 18, 0.45);
+  background: rgba(12, 20, 40, 0.45);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -334,7 +335,7 @@ tr.unavailable {
   padding: 20px;
   width: 100%;
   max-width: 620px;
-  box-shadow: 0 12px 40px rgba(10, 25, 15, 0.3);
+  box-shadow: 0 12px 40px rgba(8, 18, 45, 0.3);
 }
 
 .modal-header {
@@ -385,9 +386,9 @@ tr.unavailable {
 
 .field input:focus,
 .field select:focus {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--brand);
   outline-offset: 0;
-  border-color: var(--green);
+  border-color: var(--brand);
 }
 
 .field.grow {
@@ -443,7 +444,7 @@ tr.unavailable {
 }
 
 input[type='range'] {
-  accent-color: var(--green);
+  accent-color: var(--brand);
   width: 100%;
 }
 
@@ -465,8 +466,8 @@ input[type='range'] {
 }
 
 .pos-tab.selected {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--brand);
+  border-color: var(--brand);
   color: #fff;
 }
 
@@ -476,8 +477,8 @@ input[type='range'] {
   font-size: 0.78rem;
   border-radius: 6px;
   padding: 2px 7px;
-  background: var(--green-soft);
-  color: var(--green-dark);
+  background: var(--brand-soft);
+  color: var(--brand-dark);
 }
 
 .group-goalkeeper.pos-tag,
@@ -523,7 +524,7 @@ input[type='range'] {
 
 .rank-name em {
   font-style: normal;
-  color: var(--green-dark);
+  color: var(--brand-dark);
   margin-right: 2px;
 }
 
@@ -637,7 +638,7 @@ input[type='range'] {
   top: -9px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--green-dark);
+  background: var(--brand-dark);
   color: #fff;
   font-size: 0.62rem;
   font-weight: 700;
@@ -649,7 +650,7 @@ input[type='range'] {
 .slot-jersey {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--green-dark);
+  color: var(--brand-dark);
   line-height: 1.1;
   margin-top: 4px;
 }
@@ -744,7 +745,7 @@ input[type='range'] {
 
 .lineup-pick em {
   font-style: normal;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .lineup-alts {
@@ -774,7 +775,7 @@ input[type='range'] {
   content: '';
   position: absolute;
   inset: 4px 6px;
-  border: 2px solid var(--green);
+  border: 2px solid var(--brand);
   border-radius: 8px;
 }
 
@@ -822,8 +823,8 @@ input[type='range'] {
 }
 
 .period-tab.selected {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--brand);
+  border-color: var(--brand);
   color: #fff;
 }
 
@@ -869,18 +870,18 @@ input[type='range'] {
 }
 
 .bench-player:hover {
-  border-color: var(--green);
+  border-color: var(--brand);
 }
 
 .bench-player.selected {
   outline: 3px solid #ffd84d;
-  border-color: var(--green);
-  background: var(--green-soft);
+  border-color: var(--brand);
+  background: var(--brand-soft);
 }
 
 .bench-jersey {
   font-weight: 800;
-  color: var(--green-dark);
+  color: var(--brand-dark);
   width: 26px;
   text-align: center;
 }
@@ -898,7 +899,7 @@ input[type='range'] {
 .bench-periods {
   font-size: 0.75rem;
   color: var(--text-soft);
-  background: #eef1ee;
+  background: #eaeef6;
   border-radius: 999px;
   padding: 2px 7px;
 }
@@ -934,7 +935,7 @@ input[type='range'] {
 
 .time-name em {
   font-style: normal;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .time-dots {
@@ -948,7 +949,7 @@ input[type='range'] {
   min-width: 34px;
   height: 20px;
   border-radius: 5px;
-  background: #e7ebe7;
+  background: #e3e8f2;
   font-size: 0.65rem;
   font-weight: 700;
   color: #fff;
@@ -958,7 +959,7 @@ input[type='range'] {
 }
 
 .time-dot.on {
-  background: var(--green);
+  background: var(--brand);
 }
 
 .time-count {
@@ -994,7 +995,7 @@ input[type='range'] {
 }
 
 .mode-toggle button.selected {
-  background: var(--green);
+  background: var(--brand);
   color: #fff;
 }
 
@@ -1094,14 +1095,14 @@ input[type='range'] {
   text-align: center;
   font-weight: 700;
   font-size: 0.75rem;
-  background: var(--green-soft);
-  color: var(--green-dark);
+  background: var(--brand-soft);
+  color: var(--brand-dark);
   border-radius: 6px;
   padding: 3px 5px;
 }
 
 .stat-pos-tag.bench-tag {
-  background: #eef1ee;
+  background: #eaeef6;
   color: var(--text-soft);
 }
 
@@ -1112,7 +1113,7 @@ input[type='range'] {
 
 .stat-player em {
   font-style: normal;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .stat-pos-name {
@@ -1140,12 +1141,12 @@ input[type='range'] {
 }
 
 .stat-btn:active {
-  background: var(--green-soft);
+  background: var(--brand-soft);
 }
 
 .stat-btn.has-count {
-  border-color: var(--green);
-  background: var(--green-soft);
+  border-color: var(--brand);
+  background: var(--brand-soft);
 }
 
 .stat-short {
@@ -1156,7 +1157,7 @@ input[type='range'] {
 }
 
 .stat-btn.has-count .stat-short {
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .stat-count {
@@ -1189,7 +1190,7 @@ input[type='range'] {
 
 .review-player em {
   font-style: normal;
-  color: var(--green-dark);
+  color: var(--brand-dark);
 }
 
 .star-picker {
@@ -1204,7 +1205,7 @@ input[type='range'] {
   font-size: 1.5rem;
   line-height: 1;
   padding: 2px;
-  color: #d5dbd5;
+  color: #d3d9e5;
 }
 
 .star.on {
@@ -1228,8 +1229,8 @@ input[type='range'] {
 }
 
 .tag-chip.on {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--brand);
+  border-color: var(--brand);
   color: #fff;
 }
 
@@ -1249,7 +1250,7 @@ input[type='range'] {
   gap: 12px;
   flex-wrap: wrap;
   border: 1px solid var(--border);
-  border-left: 4px solid var(--green);
+  border-left: 4px solid var(--brand);
   border-radius: 10px;
   padding: 10px 14px;
   background: var(--bg);
@@ -1347,7 +1348,7 @@ input[type='range'] {
 }
 
 .team-sync-btn:hover {
-  border-color: var(--green);
+  border-color: var(--brand);
 }
 
 .sync-dot {
