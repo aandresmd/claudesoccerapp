@@ -78,11 +78,35 @@ ratings never change automatically, nudges to a 5 need extra games of proof,
 and downward changes stay a coach judgment call (consistently low stars just
 get a gentle "worth a second look" note).
 
+### Team sync (multiple coaches)
+
+The **Team sync** button in the header connects devices to one shared copy of
+the data, stored in a Firestore document. One coach creates the team (which
+uploads that device's data and generates a private share link); other coaches
+open the link once and stay connected. Changes sync in real time,
+last-write-wins, and keep working offline thanks to Firestore's persistent
+local cache. Security model is "anyone with the link": the team code is an
+unguessable random UUID, like a private document link.
+
+Firestore rules should allow access only to the `teams` collection:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /teams/{teamId} {
+      allow read, write: if true;
+    }
+  }
+}
+```
+
 ### Data
 
 The app seeds a 14-player demo roster so you can explore. Use
 **Export / Import** on the Roster tab to back up or move your data, and
-**Clear all** to start fresh with your real team.
+**Clear all** to start fresh with your real team. Without team sync, data
+lives in the browser's localStorage on each device.
 
 ## Tech
 

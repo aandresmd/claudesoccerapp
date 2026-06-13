@@ -5,6 +5,7 @@ import { LineupPage } from './components/LineupPage'
 import { PositionsPage } from './components/PositionsPage'
 import { RosterPage } from './components/RosterPage'
 import { SeasonPage } from './components/SeasonPage'
+import { TeamSyncControl } from './components/TeamSync'
 import { StoreProvider } from './store'
 
 type Tab = 'roster' | 'positions' | 'lineup' | 'gameday' | 'season'
@@ -42,6 +43,7 @@ export default function App() {
               </button>
             ))}
           </nav>
+          <TeamSyncControl />
         </header>
         <main>
           {tab === 'roster' && <RosterPage />}
