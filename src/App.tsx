@@ -28,7 +28,7 @@ export default function App() {
           <div className="brand">
             <img
               className="brand-badge"
-              src={`${import.meta.env.BASE_URL}carmel-fc.svg`}
+              src={`${import.meta.env.BASE_URL}carmel-fc.webp`}
               alt="Carmel FC badge"
             />
             <div>
