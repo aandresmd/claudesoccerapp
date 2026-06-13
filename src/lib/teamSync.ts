@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Action } from '../store'
 import type { AppState } from '../types'
 import { db } from './firebase'
+import { stableStringify } from './stableJson'
 
 const TEAM_KEY = 'u12-coach-team'
 const WRITE_DEBOUNCE_MS = 800
@@ -44,9 +45,14 @@ export function useTeamSync(state: AppState, dispatch: (action: Action) => void)
   const [teamId, setTeamId] = useState<string | null>(loadTeamId)
   const [status, setStatus] = useState<SyncStatus>(teamId ? 'connecting' : 'off')
 
-  const stateJson = JSON.stringify(state)
+  const stateJson = stableStringify(state)
   const stateRef = useRef(stateJson)
-  const lastSynced = useRef<string | null>(null)
+  /**
+   * The state content the server last delivered. Imports happen only when
+   * this changes, so a re-delivered snapshot after a connection blip can
+   * never overwrite newer local edits that are still waiting to upload.
+   */
+  const lastRemote = useRef<string | null>(null)
   const ready = useRef(false)
 
   useEffect(() => {
@@ -68,12 +74,12 @@ export function useTeamSync(state: AppState, dispatch: (action: Action) => void)
         ready.current = true
         const remote = snap.data().state as AppState | undefined
         if (remote) {
-          const remoteJson = JSON.stringify(remote)
-          if (remoteJson !== stateRef.current) {
-            lastSynced.current = remoteJson
-            dispatch({ type: 'importState', state: remote })
-          } else {
-            lastSynced.current = remoteJson
+          const remoteJson = stableStringify(remote)
+          if (remoteJson !== lastRemote.current) {
+            lastRemote.current = remoteJson
+            if (remoteJson !== stateRef.current) {
+              dispatch({ type: 'importState', state: remote })
+            }
           }
         }
         setStatus(snap.metadata.hasPendingWrites || snap.metadata.fromCache ? 'pending' : 'synced')
@@ -84,9 +90,8 @@ export function useTeamSync(state: AppState, dispatch: (action: Action) => void)
   }, [teamId, dispatch])
 
   useEffect(() => {
-    if (!teamId || !ready.current || stateJson === lastSynced.current) return
+    if (!teamId || !ready.current || stateJson === lastRemote.current) return
     const timer = setTimeout(() => {
-      lastSynced.current = stateJson
       setDoc(doc(db, 'teams', teamId), {
         // Round-trip through JSON strips any undefined values Firestore rejects.
         state: JSON.parse(stateJson) as AppState,
@@ -103,7 +108,7 @@ export function useTeamSync(state: AppState, dispatch: (action: Action) => void)
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }).catch(() => setStatus('error'))
-    lastSynced.current = stateRef.current
+    lastRemote.current = stateRef.current
     try {
       localStorage.setItem(TEAM_KEY, id)
     } catch {
